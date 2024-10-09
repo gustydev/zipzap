@@ -35,6 +35,7 @@ export default function Login() {
             <input type="submit" value="submit" />
         </form>
         <button>Try a demo account</button>
+        <Link to='/register'>Create a new account</Link>
         </>
     )
 }

@@ -4,8 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.jsx'
 import './index.css'
 import Login from './components/auth/Login.jsx'
+import Register from './components/auth/Register.jsx';
 import ProtectedRoute from './hooks/ProtectedRoute.jsx';
 import ErrorPage from './components/error/ErrorPage.jsx';
+import Home from './components/home/Home.jsx';
 
 const router = createBrowserRouter([
   {
@@ -14,9 +16,9 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
     children: [
       { path: 'login', element: <Login/> },
-      // { path: 'register', element: <Register/> },
+      { path: 'register', element: <Register/> },
       { element: <ProtectedRoute />, children: [
-        // { index: true, element: <Home/> }
+        { index: true, element: <Home/> }
       ]} 
     ]
   }

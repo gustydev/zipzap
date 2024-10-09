@@ -16,7 +16,7 @@ function App() {
         <Outlet/>
       </main>
       <footer></footer>
-      <ToastContainer position='bottom-left' autoClose={1000}/>
+      <ToastContainer position='bottom-left' autoClose={5000}/>
     </AuthProvider>
   )
 }
