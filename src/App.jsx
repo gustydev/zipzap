@@ -1,10 +1,13 @@
 import './App.css'
+import AuthProvider from './hooks/AuthProvider.jsx'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
-    <>
-      ayy
-    </>
+    <AuthProvider>
+      ay
+      <Outlet />
+    </AuthProvider>
   )
 }
 
