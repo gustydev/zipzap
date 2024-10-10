@@ -8,6 +8,7 @@ import Register from './components/auth/Register.jsx';
 import ProtectedRoute from './hooks/useAuth/ProtectedRoute.jsx';
 import ErrorPage from './components/error/ErrorPage.jsx';
 import Home from './components/home/Home.jsx';
+import Chat from './components/chat/Chat.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login/> },
       { path: 'register', element: <Register/> },
       { element: <ProtectedRoute />, children: [
-        { index: true, element: <Home/> }
+        { index: true, element: <Home/> },
+        { path: '/chat/:chatId', element: <Chat/>}
       ]} 
     ]
   }
