@@ -25,7 +25,7 @@ export default function Login() {
     }
 
     return (
-        <>
+        <div className='login'>
         <form action="" method='post' onSubmit={(e) => {handleSubmit(e)}}>
             <h2>Welcome to Messenger! Proceed to log in</h2>
             <label htmlFor="username">Username: </label>
@@ -36,6 +36,6 @@ export default function Login() {
         </form>
         <button>Try a demo account</button>
         <Link to='/register'>Create a new account</Link>
-        </>
+        </div>
     )
 }
