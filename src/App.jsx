@@ -3,16 +3,17 @@ import AuthProvider from './hooks/AuthProvider.jsx'
 import { Outlet } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Topbar from './components/layout/Topbar.jsx';
+import Sidebar from './components/layout/Sidebar.jsx';
 
 function App() {
   return (
     <AuthProvider>
       <header>
-        <h1>
-          Messenger 
-        </h1>
+        <Topbar/>
       </header>
       <main>
+        <Sidebar/>
         <Outlet/>
       </main>
       <footer></footer>

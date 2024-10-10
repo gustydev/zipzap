@@ -1,0 +1,12 @@
+main {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.topbar {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(90deg, #1e90ff, #00c6ff);
+    color: rgb(255, 255, 255);
+    padding: 2vh 0;
+}

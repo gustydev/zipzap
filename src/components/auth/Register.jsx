@@ -32,7 +32,7 @@ export default function Register() {
                 body: JSON.stringify(registerInput)
             })
             
-            alert(`user ${registerInput.username} sucessfully registered! proceed to log in`)
+            toast.success(`User ${registerInput.username} sucessfully registered! Proceed to log in`)
             navigate('/login');
         } catch (errors) {
             errors.details.forEach((e) => {
@@ -48,13 +48,13 @@ export default function Register() {
         <form action="" method='post' onSubmit={(e) => { handleSubmit(e) }}>
             <h2>Register</h2>
             <label htmlFor="username">Username*: </label>
-            <input onChange={(e) => {handleInputChange(e)}} required type="text" name='username' id='username'/>
+            <input onChange={(e) => {handleInputChange(e)}} required type="text" name='username' id='username' maxLength={30} minLength={4}/>
             <label htmlFor="password">Password*: </label>
-            <input onChange={(e) => {handleInputChange(e)}} required type="password" id='password' name='password'/>
+            <input onChange={(e) => {handleInputChange(e)}} required type="password" id='password' name='password' minLength={8}/>
             <label htmlFor="confirmPassword">Confirm password*: </label>
-            <input onChange={(e) => {handleInputChange(e)}} required type="password" id='confirmPassword' name='confirmPassword'/>
+            <input onChange={(e) => {handleInputChange(e)}} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
             <label htmlFor="displayName">Display name (optional):</label>
-            <input onChange={(e) => {handleInputChange(e)}} type="text" id='displayName' name='displayName'/>
+            <input onChange={(e) => {handleInputChange(e)}} type="text" id='displayName' name='displayName' minLength={2} maxLength={30}/>
             <input type="submit" value="submit" />
         </form>
         </>
