@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
@@ -22,6 +22,11 @@ export default function Login() {
             return;
         }
         toast.error('Invalid inputs')
+    }
+
+    if (auth.token) {
+        // if user is already logged in, redirect to front page
+        return <Navigate to='/' />
     }
 
     return (
