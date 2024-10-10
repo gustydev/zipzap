@@ -1,9 +1,9 @@
-import useAuth from "../../hooks/useAuth"
-
 export default function Home() {
-    const auth = useAuth();
-
     return (
-        <div>Welcome back {auth.user.displayName}!</div>
+        <div className="home">
+            <h2>Welcome to Messenger!</h2>
+            <div>Hope you like it :></div>
+            <div>Start by customizing your profile, checking out open chats and the users list</div>
+        </div>
     )
 }

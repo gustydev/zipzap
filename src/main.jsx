@@ -5,7 +5,7 @@ import App from './App.jsx'
 import './index.css'
 import Login from './components/auth/Login.jsx'
 import Register from './components/auth/Register.jsx';
-import ProtectedRoute from './hooks/ProtectedRoute.jsx';
+import ProtectedRoute from './hooks/useAuth/ProtectedRoute.jsx';
 import ErrorPage from './components/error/ErrorPage.jsx';
 import Home from './components/home/Home.jsx';
 

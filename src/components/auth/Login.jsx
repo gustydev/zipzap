@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState } from "react";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 
 export default function Login() {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./AuthContext";
-import { apiRequest, API_URL } from "../utils/api";
+import { apiRequest, API_URL } from "../../utils/api";
 import PropTypes from 'prop-types';
 import { toast } from "react-toastify";
 
