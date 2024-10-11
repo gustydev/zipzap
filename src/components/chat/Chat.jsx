@@ -34,7 +34,9 @@ export default function Chat() {
             })
             location.reload()
         } catch (error) {
-            toast.error(error.message)
+            error.details.forEach((e) => {
+                toast.error(e.msg)
+            })
             console.error(error)
         }
     }
@@ -54,7 +56,7 @@ export default function Chat() {
                 })}
             </div>
             <form action="" method='post' onSubmit={(e) => {sendMessage(e)}}>
-                <input type="text" name='content' onChange={(e) => {handleInputChange(e)}}/>
+                <input type="text" name='content' onChange={(e) => {handleInputChange(e)}} maxLength={250}/>
                 <button type="submit">SEND</button>
             </form>
         </div>

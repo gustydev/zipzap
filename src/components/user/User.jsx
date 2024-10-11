@@ -11,7 +11,8 @@ export default function User() {
     const auth = useAuth();
     const [inputs, setInputs] = useState({
         displayName: '',
-        bio: ''
+        bio: '',
+        pic: null
     })
 
     useEffect(() => {
@@ -31,23 +32,39 @@ export default function User() {
         }));
     };
 
+    const handlePicChange = (e) => {
+        setInputs((prevData) => ({
+          ...prevData,
+          pic: e.target.files[0]
+        }));
+    };
+
     async function updateProfile(e) {
         e.preventDefault();
+
+        const data = new FormData();
+        data.append('displayName', inputs.displayName)
+        data.append('bio', inputs.bio)
+        data.append('pic', inputs.pic)
+
         try {
-            await apiRequest(`${API_URL}/user/${userId}`, {
+            const res = await apiRequest(`${API_URL}/user/${userId}`, {
                 method: 'put',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${auth.token}`
                 },
-                body: JSON.stringify(inputs)
+                body: data
             })
-            location.reload()
+            toast.success(res.msg)
         } catch (error) {
             console.error(error)
-            error.details.forEach((e) => {
-                toast.error(e.msg)
-            })
+            if (error.details) {
+                error.details.forEach((e) => {
+                    toast.error(e.msg)
+                })
+            } else {
+                toast.error(error.message)
+            }
         }
     }
 
@@ -56,21 +73,24 @@ export default function User() {
     return (
         <div className='user'>
             <div className='details'>
+                {user.profilePicUrl && <img src={user.profilePicUrl} alt={user.username + "'s profile picture"} />}
                 <h2>{user.displayName}</h2>
                 <p>@{user.username}</p>
                 <p>Member since {new Date(user.joined).toLocaleDateString()}</p>
                 <p>Currently {user.status}</p>
                 {user.bio && (
-                    <div>
+                    <div style={{whiteSpace: 'pre-wrap'}}>
                         <h3>Bio:</h3>
-                        {user.bio}
+                        <div>
+                            {user.bio}
+                        </div>
                     </div>
                 )}
             </div>
             {auth.user._id === user._id && (
                 <div className='edit'>
                     <h2>Edit profile:</h2>
-                    <form action="" method="post" onSubmit={updateProfile}>
+                    <form action="" method="post" onSubmit={updateProfile} encType="multipart/form-data">
                         <label htmlFor="displayName">
                             Display name:
                             <input 
@@ -95,6 +115,16 @@ export default function User() {
                                 placeholder='Describe yourself in 200 characters or less!' 
                                 value={inputs.bio} 
                                 onChange={handleInputChange}
+                            />
+                        </label>
+                        <label htmlFor="pic">
+                            Profile picture (max 3MB):
+                            <input
+                                type='file'
+                                htmlFor='pic'
+                                id='pic'
+                                name='pic'
+                                onChange={handlePicChange}
                             />
                         </label>
                         <button type="submit">Save</button>
