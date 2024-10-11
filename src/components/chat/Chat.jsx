@@ -10,8 +10,11 @@ export default function Chat() {
     const { data: chat } = useData(`chat/${chatId}`)
     const auth = useAuth();
     const [message, setMessage] = useState({
-        content: '', 
+        content: '',
+        attachment: null
     })
+
+    console.log(chat)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -21,23 +24,38 @@ export default function Chat() {
         }));
     };
 
+    const handleFileChange = (e) => {
+        setMessage((prevData) => ({
+          ...prevData,
+          attachment: e.target.files[0]
+        }));
+    };
+
     async function sendMessage(e) {
         e.preventDefault();
+
+        const data = new FormData();
+        data.append('content', message.content)
+        data.append('attachment', message.attachment)
+
         try {
             await apiRequest(`${API_URL}/chat/${chatId}/message`, {
                 method: 'post',
                 headers: {
-                    "Content-Type": 'application/json',
                     "Authorization": `Bearer ${auth.token}`
                 },
-                body: JSON.stringify(message)
+                body: data
             })
             location.reload()
         } catch (error) {
-            error.details.forEach((e) => {
-                toast.error(e.msg)
-            })
             console.error(error)
+            if (error.details) {
+                error.details.forEach((e) => {
+                    toast.error(e.msg)
+                })
+            } else {
+                toast.error(error.message)
+            } 
         }
     }
 
@@ -51,12 +69,20 @@ export default function Chat() {
                     return (
                         <div key={msg._id}>
                             {msg.postedBy.displayName + ': ' + msg.content}
+                            {msg.attachment && (
+                                msg.attachment.type.startsWith('image') ? <img 
+                                src={msg.attachment.url} 
+                                alt={'attachment posted by ' + msg.postedBy.username} 
+                                style={{width: '50px'}}
+                                /> : <a href={msg.attachment.url}>Download attachment</a>
+                            )}
                         </div>
                     )
                 })}
             </div>
-            <form action="" method='post' onSubmit={(e) => {sendMessage(e)}}>
-                <input type="text" name='content' onChange={(e) => {handleInputChange(e)}} maxLength={250}/>
+            <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data">
+                <input type="text" name='content' onChange={handleInputChange} maxLength={250}/>
+                <input type="file" name='attachment' onChange={handleFileChange} />
                 <button type="submit">SEND</button>
             </form>
         </div>
