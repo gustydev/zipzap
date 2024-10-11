@@ -1,33 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../../hooks/useAuth/useAuth";
-import { API_URL, apiRequest } from "../../utils/api";
 import { Link } from "react-router-dom";
+import { useData } from "../../hooks/useData/useData";
 
 export default function Sidebar() {
     const auth = useAuth();
     const [tab, setTab] = useState('chat');
-    const [data, setData] = useState([]);
+    const { data } = useData(`${tab}/list`);
 
-    useEffect(() => {
-        let ignore = false;
-
-        async function fetchData() {
-            try {
-                const data = await apiRequest(`${API_URL}/${tab}/list`)
-                setData(data);
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        if (!ignore) fetchData()
-
-        return () => {
-            ignore = true;
-        }
-    }, [tab])
-
-    console.log(data)
+    if (!data) return 'Loading data'
 
     return (
         <div className="sidebar" style={{position: 'relative', padding: '12px'}}>
@@ -40,7 +21,7 @@ export default function Sidebar() {
                 style={{width: '25px'}}
                 />
                 <div>{auth.user.displayName}</div>
-                <div>@{auth.user.username}</div>
+                <div><Link to={`/user/${auth.user._id}`}>@{auth.user.username}</Link></div>
             </div>
             <div className='tabSelector'>
                 <button onClick={() => {setTab('chat')}}>Chats</button>

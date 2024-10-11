@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useParams } from "react-router-dom";
 import { API_URL, apiRequest } from "../../utils/api";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
+import { useData } from "../../hooks/useData/useData";
 
 export default function Chat() {
-    const [data, setData] = useState(null);
     const { chatId } = useParams()
+    const { data: chat } = useData(`chat/${chatId}`)
     const auth = useAuth();
     const [message, setMessage] = useState({
         content: '', 
     })
-    console.log(message, data)
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setMessage((prevInput) => ({
@@ -19,25 +20,6 @@ export default function Chat() {
           [name]: value,
         }));
     };
-
-    useEffect(() => {
-        let ignore = false;
-
-        async function fetchData() {
-            try {
-                const data = await apiRequest(`${API_URL}/chat/${chatId}`)
-                setData(data);
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        if (!ignore) fetchData()
-
-        return () => {
-            ignore = true;
-        }
-    }, [chatId])
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -57,13 +39,13 @@ export default function Chat() {
         }
     }
 
-    if (!data) return 'Loading chat data...'
+    if (!chat) return 'Loading chat data...'
 
     return (
         <div className='chat'>
-            <h2>{data.title}</h2>
+            <h2>{chat.title}</h2>
             <div className="messages">
-                {data.messages.map((msg) => {
+                {chat.messages.map((msg) => {
                     return (
                         <div key={msg._id}>
                             {msg.postedBy.displayName + ': ' + msg.content}
