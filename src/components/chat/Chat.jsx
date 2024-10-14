@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useRef } from "react"
+import { useOutletContext, useParams } from "react-router-dom";
 import { API_URL, apiRequest } from "../../utils/api";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
@@ -7,14 +7,14 @@ import { useData } from "../../hooks/useData/useData";
 
 export default function Chat() {
     const { chatId } = useParams()
-    const { data: chat } = useData(`chat/${chatId}`)
+    const { data: chat, setData: setChat } = useData(`chat/${chatId}`)
     const auth = useAuth();
     const [message, setMessage] = useState({
         content: '',
         attachment: null
     })
-
-    console.log(chat)
+    const [socket] = useOutletContext();
+    const fileInput = useRef(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,6 +31,16 @@ export default function Chat() {
         }));
     };
 
+    useEffect(() => {
+        socket.on('message', (data) => {
+            setChat(data.chat);
+        })
+
+        return () => {
+            socket.off('message')
+        }
+    }, [socket, setChat])
+
     async function sendMessage(e) {
         e.preventDefault();
 
@@ -39,14 +49,16 @@ export default function Chat() {
         data.append('attachment', message.attachment)
 
         try {
-            await apiRequest(`${API_URL}/chat/${chatId}/message`, {
+            const msg = await apiRequest(`${API_URL}/chat/${chatId}/message`, {
                 method: 'post',
                 headers: {
                     "Authorization": `Bearer ${auth.token}`
                 },
                 body: data
             })
-            location.reload()
+            socket.emit('message', msg)
+            setMessage((prev) => ({...prev, content: '', attachment: null}))
+            fileInput.current.value = ''
         } catch (error) {
             console.error(error)
             if (error.details) {
@@ -81,8 +93,8 @@ export default function Chat() {
                 })}
             </div>
             <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data">
-                <input type="text" name='content' onChange={handleInputChange} maxLength={250}/>
-                <input type="file" name='attachment' onChange={handleFileChange} />
+                <input type="text" name='content' onChange={handleInputChange} value={message.content} maxLength={250}/>
+                <input type="file" name='attachment' onChange={handleFileChange} ref={fileInput} />
                 <button type="submit">SEND</button>
             </form>
         </div>
