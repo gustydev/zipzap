@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth/useAuth";
-import { Link } from "react-router-dom";
 import { useData } from "../../../hooks/useData/useData";
 import Tab from "./Tab";
+import UserInfo from "./UserInfo";
+import SidebarActions from "./SidebarActions";
 
 export default function Sidebar( {socket} ) {
     const auth = useAuth();
@@ -26,20 +27,8 @@ export default function Sidebar( {socket} ) {
 
     return (
         <div className="sidebar" style={{position: 'relative', padding: '12px'}}>
-            <button onClick={auth.logOut} style={{position: 'absolute', right: 5, top: 5}}>Log out</button>
-            <div className='userInfo'>
-                {user.profilePicUrl && (<img 
-                src={user.profilePicUrl} 
-                alt={`${user.username}'s profile picture`}
-                style={{width: '25px'}}
-                />)}
-                <div>{user.displayName}</div>
-                <div><Link to={`/user/${user._id}`}>@{user.username}</Link></div>
-            </div>
-            <div className='tabSelector'>
-                <button onClick={() => {setTab('chat')}}>Chats</button>
-                <button onClick={() => {setTab('user')}}>Users</button>
-            </div>
+            <UserInfo user={user}/>
+            <SidebarActions auth={auth} setTab={setTab} />
             <Tab tab={tab} tabData={tabData} />
         </div>
     )

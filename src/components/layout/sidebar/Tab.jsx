@@ -12,7 +12,7 @@ export default function Tab( {tab, tabData} ) {
 
     return (
         <div className='tab'>
-        <h2 style={{textTransform: 'capitalize'}}>{tab + 's'}</h2>
+        <h2 style={{textTransform: 'capitalize'}}>{tab + 's'} ({data.length})</h2>
             <ul>
                 {data.map((d) => {
                     return (

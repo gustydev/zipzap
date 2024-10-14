@@ -4,6 +4,7 @@ import { API_URL, apiRequest } from "../../utils/api";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 import { useData } from "../../hooks/useData/useData";
+import Message from "./Message";
 
 export default function Chat() {
     const { chatId } = useParams()
@@ -78,21 +79,8 @@ export default function Chat() {
     return (
         <div className='chat'>
             <h2>{chat.title}</h2>
-            <div className="messages">
-                {chat.messages.map((msg) => {
-                    return (
-                        <div key={msg._id}>
-                            {msg.postedBy.displayName + ': ' + msg.content}
-                            {msg.attachment && (
-                                msg.attachment.type.startsWith('image') ? <img 
-                                src={msg.attachment.url} 
-                                alt={'attachment posted by ' + msg.postedBy.username} 
-                                style={{width: '50px'}}
-                                /> : <a href={msg.attachment.url}>Attachment ({msg.attachment.type})</a>
-                            )}
-                        </div>
-                    )
-                })}
+            <div className='messages'>
+                {chat.messages.map((msg) => { return <Message msg={msg} key={msg._id}/> })}
             </div>
             <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data">
                 <input type="text" name='content' onChange={handleInputChange} value={message.content} maxLength={250}/>
