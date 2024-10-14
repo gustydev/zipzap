@@ -33,13 +33,15 @@ export default function Chat() {
 
     useEffect(() => {
         socket.on('message', (data) => {
-            setChat(data.chat);
+            if (data.chat._id === chatId) {
+                setChat(data.chat);
+            }
         })
 
         return () => {
             socket.off('message')
         }
-    }, [socket, setChat])
+    }, [socket, setChat, chatId])   
 
     async function sendMessage(e) {
         e.preventDefault();

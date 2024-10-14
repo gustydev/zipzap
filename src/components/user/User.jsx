@@ -18,13 +18,15 @@ export default function User() {
 
     useEffect(() => {
         socket.on('updateProfile', (data) => {
-            setUser(data.user);
+            if (data.user._id === auth.user._id) {
+                setUser(data.user);
+            }
         })
 
         return () => {
             socket.off('updateProfile')
         }
-    }, [socket, setUser])
+    }, [socket, setUser, auth.user._id])
 
     useEffect(() => {
         if (user) {
