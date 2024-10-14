@@ -15,11 +15,11 @@ export default function Sidebar() {
         <div className="sidebar" style={{position: 'relative', padding: '12px'}}>
             <button onClick={auth.logOut} style={{position: 'absolute', right: 5, top: 5}}>Log out</button>
             <div className='userInfo'>
-                <img 
+                {user.profilePicUrl && (<img 
                 src={user.profilePicUrl} 
                 alt={`${user.username}'s profile picture`}
                 style={{width: '25px'}}
-                />
+                />)}
                 <div>{user.displayName}</div>
                 <div><Link to={`/user/${user._id}`}>@{user.username}</Link></div>
             </div>

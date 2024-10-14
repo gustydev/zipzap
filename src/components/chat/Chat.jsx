@@ -74,7 +74,7 @@ export default function Chat() {
                                 src={msg.attachment.url} 
                                 alt={'attachment posted by ' + msg.postedBy.username} 
                                 style={{width: '50px'}}
-                                /> : <a href={msg.attachment.url}>Download attachment</a>
+                                /> : <a href={msg.attachment.url}>Attachment ({msg.attachment.type})</a>
                             )}
                         </div>
                     )

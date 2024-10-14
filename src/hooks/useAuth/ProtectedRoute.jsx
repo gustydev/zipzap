@@ -1,16 +1,22 @@
 import { Navigate, Outlet } from "react-router-dom";
 import useAuth from './useAuth'
 import Sidebar from "../../components/layout/Sidebar";
+import { io } from "socket.io-client";
+import { API_URL } from "../../utils/api";
 
 export default function ProtectedRoute() {
-    const user = useAuth();
+    const auth = useAuth();
 
-    if (!user.token) return <Navigate to="/login" />;
+    if (!auth.token) return <Navigate to="/login" />;
+
+    const socket = io(API_URL, {transports: ['websocket', 'polling', 'flashsocket'], query: {
+        userId: auth.user._id
+    }})
     
     return (
         <>
             <Sidebar/>
-            <Outlet />
+            <Outlet context={[socket]}/>
         </>
     );
 };
