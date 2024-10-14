@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { Link } from "react-router-dom";
 import { useData } from "../../hooks/useData/useData";
 
-export default function Sidebar() {
+export default function Sidebar( {socket} ) {
     const auth = useAuth();
     const [tab, setTab] = useState('chat');
     const { data: tabData } = useData(`${tab}/list`);
-    const { data: user } = useData(`user/${auth.user._id}`);
+    const { data: user, setData: setUser } = useData(`user/${auth.user._id}`);
+
+    useEffect(() => {
+        socket.on('updateProfile', (data) => {
+            setUser(data.user);
+        })
+
+        return () => {
+            socket.off('updateProfile')
+        }
+    }, [socket, setUser])   
 
     if (!tabData || !user) return 'Loading data...'
 

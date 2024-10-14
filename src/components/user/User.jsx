@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react"
 import { useData } from "../../hooks/useData/useData"
-import { useParams } from "react-router-dom"
+import { useOutletContext, useParams } from "react-router-dom"
 import useAuth from "../../hooks/useAuth/useAuth";
 import { API_URL, apiRequest } from "../../utils/api";
 import { toast } from "react-toastify";
 
 export default function User() {
     const { userId } = useParams();
-    const { data: user } = useData(`user/${userId}`)
+    const { data: user, setData: setUser } = useData(`user/${userId}`)
     const auth = useAuth();
     const [inputs, setInputs] = useState({
         displayName: '',
         bio: '',
         pic: null
     })
+    const [socket] = useOutletContext();
+
+    useEffect(() => {
+        socket.on('updateProfile', (data) => {
+            setUser(data.user);
+        })
+
+        return () => {
+            socket.off('updateProfile')
+        }
+    }, [socket, setUser])
 
     useEffect(() => {
         if (user) {
@@ -55,6 +66,7 @@ export default function User() {
                 },
                 body: data
             })
+            socket.emit('updateProfile', res)
             toast.success(res.msg)
         } catch (error) {
             console.error(error)

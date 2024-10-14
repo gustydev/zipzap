@@ -15,8 +15,8 @@ export default function ProtectedRoute() {
     
     return (
         <>
-            <Sidebar/>
-            <Outlet context={[socket]}/>
+            <Sidebar socket={socket} />
+            <Outlet context={[socket]} />
         </>
     );
 };
