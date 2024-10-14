@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import useAuth from "../../hooks/useAuth/useAuth";
+import useAuth from "../../../hooks/useAuth/useAuth";
 import { Link } from "react-router-dom";
-import { useData } from "../../hooks/useData/useData";
+import { useData } from "../../../hooks/useData/useData";
+import Tab from "./Tab";
 
 export default function Sidebar( {socket} ) {
     const auth = useAuth();
@@ -39,18 +40,7 @@ export default function Sidebar( {socket} ) {
                 <button onClick={() => {setTab('chat')}}>Chats</button>
                 <button onClick={() => {setTab('user')}}>Users</button>
             </div>
-            <div className='tab'>
-                <h2 style={{textTransform: 'capitalize'}}>{tab + 's'}</h2>
-                <ul>
-                    {tabData.map((d) => {
-                       return (
-                        <li key={d._id}>
-                            <Link to={`/${tab}/${d._id}`}>{tab === 'chat' ? d.title : d.displayName}</Link>
-                        </li>
-                        )
-                    })}
-                </ul>
-            </div>
+            <Tab tab={tab} tabData={tabData} />
         </div>
     )
 }

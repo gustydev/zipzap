@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import useAuth from './useAuth'
-import Sidebar from "../../components/layout/Sidebar";
+import Sidebar from "../../components/layout/sidebar/Sidebar";
 import { io } from "socket.io-client";
 import { API_URL } from "../../utils/api";
 

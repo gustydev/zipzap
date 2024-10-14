@@ -9,3 +9,15 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
 }
+
+a {
+    text-decoration: none;
+}
+
+.online {
+    color: green
+}
+
+.offline {
+    color: red;
+}
