@@ -45,16 +45,16 @@ export default function Register() {
 
     return (
         <>
-        <form action="" method='post' onSubmit={(e) => { handleSubmit(e) }}>
+        <form action="" method='post' onSubmit={handleSubmit}>
             <h2>Register</h2>
             <label htmlFor="username">Username*: </label>
-            <input onChange={(e) => {handleInputChange(e)}} required type="text" name='username' id='username' maxLength={30} minLength={4}/>
+            <input onChange={handleInputChange} required type="text" name='username' id='username' maxLength={30} minLength={4}/>
             <label htmlFor="password">Password*: </label>
-            <input onChange={(e) => {handleInputChange(e)}} required type="password" id='password' name='password' minLength={8}/>
+            <input onChange={handleInputChange} required type="password" id='password' name='password' minLength={8}/>
             <label htmlFor="confirmPassword">Confirm password*: </label>
-            <input onChange={(e) => {handleInputChange(e)}} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
+            <input onChange={handleInputChange} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
             <label htmlFor="displayName">Display name (optional):</label>
-            <input onChange={(e) => {handleInputChange(e)}} type="text" id='displayName' name='displayName' minLength={2} maxLength={30}/>
+            <input onChange={handleInputChange} type="text" id='displayName' name='displayName' minLength={2} maxLength={30}/>
             <input type="submit" value="submit" />
         </form>
         </>
