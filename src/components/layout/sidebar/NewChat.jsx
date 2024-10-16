@@ -3,6 +3,7 @@ import { API_URL, apiRequest } from "../../../utils/api";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import handleInputChange from "../../../utils/handleInputChange";
 
 export default function NewChat( {newFormActive, setNewFormActive} ) {
     const auth = useAuth();
@@ -11,14 +12,6 @@ export default function NewChat( {newFormActive, setNewFormActive} ) {
         public: false
     })
     const nav = useNavigate();
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setInputs((prevInputs) => ({
-          ...prevInputs,
-          [name]: value,
-        }));
-    };
 
     const handlePublicChange = () => {
         setInputs((prevInputs) => ({
@@ -44,9 +37,9 @@ export default function NewChat( {newFormActive, setNewFormActive} ) {
             setNewFormActive(!newFormActive)
 
             nav(`/chat/${res.chat._id}`)
-        } catch (error) {
-            console.error(error)
-            error.details.forEach((e) => {
+        } catch (err) {
+            console.error(err)
+            err.details.forEach((e) => {
                 toast.error(e.msg);
             })
         }
@@ -56,7 +49,7 @@ export default function NewChat( {newFormActive, setNewFormActive} ) {
         <>
         {newFormActive && (
             <form action="" method="post" onSubmit={createChat}>
-                <input type="text" name='title' min={1} max={50} placeholder='Chat title' onChange={handleInputChange}/>
+                <input type="text" name='title' min={1} max={50} placeholder='Chat title' onChange={(e) => {handleInputChange(e, setInputs)}}/>
                 <label htmlFor="public">
                     <p>Public?</p>
                     <input id='public' type="checkbox" name='public' value={inputs.public} onChange={handlePublicChange}/>

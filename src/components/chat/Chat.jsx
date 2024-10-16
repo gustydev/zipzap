@@ -5,6 +5,8 @@ import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 import { useData } from "../../hooks/useData/useData";
 import Message from "./Message";
+import getDMRecipient from "../../utils/getDMRecipient";
+import handleInputChange from "../../utils/handleInputChange";
 
 export default function Chat() {
     const { chatId } = useParams()
@@ -16,14 +18,6 @@ export default function Chat() {
     })
     const [socket] = useOutletContext();
     const fileInput = useRef(null);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setMessage((prevInput) => ({
-          ...prevInput,
-          [name]: value,
-        }));
-    };
 
     const handleFileChange = (e) => {
         setMessage((prevData) => ({
@@ -75,15 +69,16 @@ export default function Chat() {
     }
 
     if (!chat) return 'Loading chat data...'
+    if (!chat.public && !chat.members.find((m) => m.member._id === auth.user._id)) return 'Error: you are not allowed to see this private chat.'
 
     return (
         <div className='chat'>
-            <h2>{chat.dm ? chat.members.find((m) => m.member._id !== auth.user._id).member.displayName : chat.title}</h2>
+            <h2>{chat.dm ? getDMRecipient(chat.members, auth.user) : chat.title}</h2>
             <div className='messages'>
                 {chat.messages.map((msg) => { return <Message msg={msg} key={msg._id}/> })}
             </div>
             <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data">
-                <input type="text" name='content' onChange={handleInputChange} value={message.content} maxLength={250}/>
+                <input type="text" name='content' onChange={(e) => {handleInputChange(e, setMessage)}} value={message.content} maxLength={250}/>
                 <input type="file" name='attachment' onChange={handleFileChange} ref={fileInput} />
                 <button type="submit">SEND</button>
             </form>

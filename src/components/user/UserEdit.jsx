@@ -3,6 +3,7 @@ import { apiRequest, API_URL } from "../../utils/api"
 import useAuth from "../../hooks/useAuth/useAuth"
 import { toast } from "react-toastify"
 import UserEditForm from "./UserEditForm"
+import handleInputChange from "../../utils/handleInputChange"
 
 export default function UserEdit( {user, socket}) {
     const [inputs, setInputs] = useState({
@@ -21,14 +22,6 @@ export default function UserEdit( {user, socket}) {
             })
         }
     }, [user])
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setInputs((prevInput) => ({
-          ...prevInput,
-          [name]: value,
-        }));
-    };
 
     const handlePicChange = (e) => {
         setInputs((prevData) => ({
@@ -77,6 +70,7 @@ export default function UserEdit( {user, socket}) {
                 handleInputChange={handleInputChange} 
                 handlePicChange={handlePicChange}
                 fileInput={fileInput}    
+                setInputs={setInputs}
             />
         </div>
     )

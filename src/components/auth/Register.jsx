@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiRequest, API_URL } from "../../utils/api";
 import { toast } from "react-toastify";
+import handleInputChange from "../../utils/handleInputChange";
 
 export default function Register() {
     const [registerInput, setRegisterInput] = useState({
@@ -12,14 +13,6 @@ export default function Register() {
     })
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setRegisterInput((prevInput) => ({
-          ...prevInput,
-          [name]: value,
-        }));
-    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -48,13 +41,13 @@ export default function Register() {
         <form action="" method='post' onSubmit={handleSubmit}>
             <h2>Register</h2>
             <label htmlFor="username">Username*: </label>
-            <input onChange={handleInputChange} required type="text" name='username' id='username' maxLength={30} minLength={4}/>
+            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="text" name='username' id='username' maxLength={30} minLength={4}/>
             <label htmlFor="password">Password*: </label>
-            <input onChange={handleInputChange} required type="password" id='password' name='password' minLength={8}/>
+            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="password" id='password' name='password' minLength={8}/>
             <label htmlFor="confirmPassword">Confirm password*: </label>
-            <input onChange={handleInputChange} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
+            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
             <label htmlFor="displayName">Display name (optional):</label>
-            <input onChange={handleInputChange} type="text" id='displayName' name='displayName' minLength={2} maxLength={30}/>
+            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} type="text" id='displayName' name='displayName' minLength={2} maxLength={30}/>
             <input type="submit" value="submit" />
         </form>
         </>

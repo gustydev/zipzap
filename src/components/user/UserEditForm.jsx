@@ -1,4 +1,4 @@
-export default function UserEditForm( {inputs, updateProfile, handleInputChange, handlePicChange, fileInput} ) {
+export default function UserEditForm( {inputs, updateProfile, handleInputChange, handlePicChange, fileInput, setInputs} ) {
     return (
         <form action="" method="post" onSubmit={updateProfile} encType="multipart/form-data">
             <label htmlFor="displayName">
@@ -12,7 +12,7 @@ export default function UserEditForm( {inputs, updateProfile, handleInputChange,
                     maxLength={30} 
                     placeholder='John Dough' 
                     value={inputs.displayName} 
-                    onChange={handleInputChange}
+                    onChange={(e) => {handleInputChange(e, setInputs)}}
                 />
             </label>
             <label htmlFor="bio">
@@ -24,7 +24,7 @@ export default function UserEditForm( {inputs, updateProfile, handleInputChange,
                     maxLength={200} 
                     placeholder='Describe yourself in 200 characters or less!' 
                     value={inputs.bio} 
-                    onChange={handleInputChange}
+                    onChange={(e) => {handleInputChange(e, setInputs)}}
                 />
             </label>
             <label htmlFor="pic">

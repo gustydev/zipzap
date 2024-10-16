@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import ChatLink from "./ChatLink";
+import UserLink from "./UserLink";
 
 export default function Tab( {tab, tabData, user} ) {
     const data = [...tabData];
@@ -16,19 +17,7 @@ export default function Tab( {tab, tabData, user} ) {
             <ul>
                 {data.map((d) => {
                     return (
-                    <li key={d._id}>
-                        <Link to={`/${tab}/${d._id}`}>
-                            {tab === 'chat' ? 
-                            (d.members?.find((m) => m.member._id === user._id) || d.public ? (
-                                d.title || d.members.find((m) => m.member._id !== user._id).member.displayName
-                            ) : '')
-                            : (
-                                <span className={d.status === 'Online' ? 'online' : 'offline'}>
-                                    <span style={{fontWeight: 'bold'}}>{d.displayName}</span> (@{d.username})
-                                </span>
-                            )}
-                        </Link>
-                    </li>
+                        tab === 'chat' ? <ChatLink key={d._id} user={user} chat={d} />: <UserLink key={d._id} userData={d}/>
                     )
                 })}
             </ul>
