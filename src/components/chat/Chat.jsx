@@ -78,7 +78,7 @@ export default function Chat() {
 
     return (
         <div className='chat'>
-            <h2>{chat.title}</h2>
+            <h2>{chat.dm ? chat.members.find((m) => m.member._id !== auth.user._id).member.displayName : chat.title}</h2>
             <div className='messages'>
                 {chat.messages.map((msg) => { return <Message msg={msg} key={msg._id}/> })}
             </div>

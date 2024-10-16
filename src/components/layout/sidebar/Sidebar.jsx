@@ -31,7 +31,7 @@ export default function Sidebar( {socket} ) {
         <div className="sidebar" style={{position: 'relative', padding: '12px'}}>
             <UserInfo user={user}/>
             <SidebarActions auth={auth} setTab={setTab} newFormActive={newFormActive} setNewFormActive={setNewFormActive} />
-            <Tab tab={tab} tabData={tabData} />
+            <Tab tab={tab} tabData={tabData} user={user} />
             <NewChat newFormActive={newFormActive} setNewFormActive={setNewFormActive}/>
         </div>
     )
