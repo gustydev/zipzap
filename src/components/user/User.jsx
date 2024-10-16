@@ -28,6 +28,18 @@ export default function User() {
 
     async function createDMChat() {
         try {
+            const dm = await apiRequest(`${API_URL}/chat/dm/${userId}`, {
+                method: 'get',
+                headers: {
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            })
+            
+            if (dm) {
+                nav(`/chat/${dm._id}`)
+                return;
+            }
+
             const res = await apiRequest(`${API_URL}/chat`, {
                 method: 'post',
                 headers: {
