@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { apiRequest, API_URL } from "../../utils/api";
 import { toast } from "react-toastify";
 import handleInputChange from "../../utils/handleInputChange";
+import { Link } from "react-router-dom";
 
 export default function Register() {
     const [registerInput, setRegisterInput] = useState({
@@ -30,26 +31,38 @@ export default function Register() {
         } catch (errors) {
             errors.details.forEach((e) => {
                 toast.error(e.msg);
-                // instead of toasting everything i can make it fancy and highlight the fields with errors
             })
-            setErrors(errors)
+            setErrors(errors.details)
         }
     }
 
     return (
-        <>
-        <form action="" method='post' onSubmit={handleSubmit}>
-            <h2>Register</h2>
-            <label htmlFor="username">Username*: </label>
-            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="text" name='username' id='username' maxLength={30} minLength={4}/>
-            <label htmlFor="password">Password*: </label>
-            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="password" id='password' name='password' minLength={8}/>
-            <label htmlFor="confirmPassword">Confirm password*: </label>
-            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
-            <label htmlFor="displayName">Display name (optional):</label>
-            <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} type="text" id='displayName' name='displayName' minLength={2} maxLength={30}/>
-            <input type="submit" value="submit" />
-        </form>
-        </>
+        <div className='register'>
+            <h2>Create an account</h2>
+            <form action="" method='post' onSubmit={handleSubmit} className="authForm">
+                <div className="formGroup">
+                    <label htmlFor="username">Username*</label>
+                    <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="text" name='username' id='username' maxLength={30} minLength={4}/>
+                </div>
+                <div className="formGroup">
+                    <label htmlFor="displayName">Display name</label>
+                    <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} type="text" id='displayName' name='displayName' minLength={2} maxLength={30}/>
+                </div>
+                <div className="formGroup">
+                    <label htmlFor="password">Password*</label>
+                    <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="password" id='password' name='password' minLength={8}/>
+                </div>
+                <div className="formGroup">
+                    <label htmlFor="confirmPassword">Confirm password*</label>
+                    <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
+                </div>
+                <input type="submit" value="Submit" />
+            </form>
+            <Link to='/'>
+                <button>
+                    Return to front page
+                </button>
+            </Link>
+        </div>
     )
 }

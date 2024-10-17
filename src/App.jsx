@@ -2,7 +2,7 @@ import './App.css'
 import AuthProvider from './hooks/useAuth/AuthProvider.jsx'
 import { Outlet, useLocation } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { Slide, ToastContainer, Zoom } from 'react-toastify';
 import Topbar from './components/layout/Topbar.jsx';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Outlet/>
       </main>
       <footer></footer>
-      <ToastContainer position='bottom-left' autoClose={5000}/>
+      <ToastContainer position='top-center' autoClose={5000} closeOnClick={true} transition={Slide}/>
     </AuthProvider>
   )
 }

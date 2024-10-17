@@ -24,16 +24,24 @@ export default function Login() {
 
     return (
         <div className='login'>
-        <form action="" method='post' onSubmit={(e) => {handleSubmit(e)}}>
             <h2>Welcome to Messenger! Proceed to log in</h2>
-            <label htmlFor="username">Username: </label>
-            <input onChange={(e) => {handleInputChange(e, setLoginInput)}} required type="text" id='username' name='username' placeholder='Username' />
-            <label htmlFor="password">Passsword: </label>
-            <input onChange={(e) => {handleInputChange(e, setLoginInput)}} required type="password" id='password' name='password' />
-            <input type="submit" value="submit" />
-        </form>
-        <button>Try a demo account</button>
-        <Link to='/register'>Create a new account</Link>
+            <form action="" method='post' onSubmit={(e) => {handleSubmit(e)}} className="authForm">
+                <div className="formGroup">
+                    <label htmlFor="username">Username</label>
+                    <input onChange={(e) => {handleInputChange(e, setLoginInput)}} required type="text" id='username' name='username' placeholder='Username' />
+                </div>
+                <div className="formGroup">
+                    <label htmlFor="password">Passsword</label>
+                    <input onChange={(e) => {handleInputChange(e, setLoginInput)}} required type="password" id='password' name='password' />
+                </div>
+                <input type="submit" value="Log in" />
+            </form>
+            <button>Try a demo account</button>
+            <Link to='/register'>
+                <button>
+                    Create a new account
+                </button>
+            </Link>
         </div>
     )
 }

@@ -1,7 +1,8 @@
 .topbar {
     display: flex;
     justify-content: center;
-    background: linear-gradient(135deg, #1e90ff, #00c6ff);
+    background: linear-gradient(135deg, rgb(0, 89, 195), rgb(0, 163, 215));
+    color: white;
     padding: 2vh 0;
 }
 
@@ -20,4 +21,33 @@ a {
 
 .offline {
     color: red;
+}
+
+.login, .register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    gap: 8px;
+}
+
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: rgb(250, 250, 250);
+    border: 2px solid rgb(250, 250, 250);
+    padding: 16px;
+}
+
+.formGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 4px 0;
+    font-weight: bold;
+}
+
+.authForm > input[type='submit'] {
+    align-self: end;
 }
