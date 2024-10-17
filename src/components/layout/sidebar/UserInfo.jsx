@@ -9,8 +9,8 @@ export default function UserInfo( {user} ) {
             style={{width: '50px'}}
             className='userImage'
             />)}
-            <div>{user.displayName}</div>
-            <div>
+            <div className='d-grid'>
+                {user.displayName}
                 <Link to={`/user/${user._id}`} className='link-underline link-underline-opacity-0'>
                     @{user.username}
                 </Link>

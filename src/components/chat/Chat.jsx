@@ -76,12 +76,12 @@ export default function Chat() {
         <div className='chat'>
             <h2>{chat.dm ? getDMRecipient(chat.members, auth.user) : chat.title}</h2>
             <div className='messages'>
-                {chat.messages.map((msg) => { return <Message msg={msg} key={msg._id}/> })}
+                <div>{chat.messages.map((msg) => { return <Message msg={msg} key={msg._id}/> })}</div>
             </div>
-            <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data">
-                <input type="text" name='content' onChange={(e) => {handleInputChange(e, setMessage)}} value={message.content} maxLength={250}/>
+            <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data" className='d-flex gap-1'>
                 <input type="file" name='attachment' onChange={handleFileChange} ref={fileInput} />
-                <button type="submit">SEND</button>
+                <input type="text" name='content' onChange={(e) => {handleInputChange(e, setMessage)}} value={message.content} maxLength={250}/>
+                <button type="submit" className="btn btn-primary">Send</button>
             </form>
         </div>
     )

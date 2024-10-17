@@ -15,11 +15,18 @@ export default function Tab( {tab, tabData, user} ) {
         <div className='tab'>
             <ul className='list-group'>
                 {data.map((d) => {
-                    return (
-                        tab === 'chat' ? <ChatLink key={d._id} user={user} chat={d} />: <UserLink key={d._id} userData={d}/>
-                    )
+                    if (tab === 'chat') {
+                        const isMember = d.members?.find((m) => m.member._id === user._id);
+                        if (isMember || d.public) {
+                            return <ChatLink key={d._id} user={user} chat={d} />;
+                        }
+                    } else {
+                        return <UserLink key={d._id} userData={d} />;
+                    }
+                    return null;
                 })}
             </ul>
         </div>
-    )
+    );
+    
 }
