@@ -10,6 +10,8 @@ import ErrorPage from './components/error/ErrorPage.jsx';
 import Home from './components/home/Home.jsx';
 import Chat from './components/chat/Chat.jsx';
 import User from './components/user/User.jsx';
+import './styles.scss';
+import * as bootstrap from 'bootstrap'
 
 const router = createBrowserRouter([
   {

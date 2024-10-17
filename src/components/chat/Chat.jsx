@@ -68,7 +68,7 @@ export default function Chat() {
         }
     }
 
-    if (!chat) return 'Loading chat data...'
+    if (!chat) return 'Loading chat...'
     if (!chat.public && !chat.members.find((m) => m.member._id === auth.user._id)) return 'Error: you are not allowed to see this private chat.'
 
     return (

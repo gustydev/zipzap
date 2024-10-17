@@ -26,7 +26,7 @@ export default function Login() {
         <div className='login'>
             <h2>Welcome to Messenger! Proceed to log in</h2>
             <form action="" method='post' onSubmit={(e) => {handleSubmit(e)}} className="authForm">
-                <div className="formGroup">
+                <div className="formGroup mb-3">
                     <label htmlFor="username">Username</label>
                     <input onChange={(e) => {handleInputChange(e, setLoginInput)}} required type="text" id='username' name='username' placeholder='Username' />
                 </div>
@@ -34,11 +34,11 @@ export default function Login() {
                     <label htmlFor="password">Passsword</label>
                     <input onChange={(e) => {handleInputChange(e, setLoginInput)}} required type="password" id='password' name='password' />
                 </div>
-                <input type="submit" value="Log in" />
+                <input type="submit" value="Log in" className='btn btn-primary'/>
             </form>
-            <button>Try a demo account</button>
+            <button className="btn btn-outline-primary">Try a demo account</button>
             <Link to='/register'>
-                <button>
+                <button className="btn btn-outline-success">
                     Create a new account
                 </button>
             </Link>

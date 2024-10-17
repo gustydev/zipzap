@@ -30,7 +30,7 @@ export default function Sidebar( {socket} ) {
     return (
         <div className="sidebar" style={{position: 'relative', padding: '12px'}}>
             <UserInfo user={user}/>
-            <SidebarActions auth={auth} setTab={setTab} newFormActive={newFormActive} setNewFormActive={setNewFormActive} />
+            <SidebarActions auth={auth} setTab={setTab} tab={tab}/>
             <Tab tab={tab} tabData={tabData} user={user} />
             {tab === 'chat' && <NewChat newFormActive={newFormActive} setNewFormActive={setNewFormActive}/>}
         </div>

@@ -56,10 +56,10 @@ export default function Register() {
                     <label htmlFor="confirmPassword">Confirm password*</label>
                     <input onChange={(e) => {handleInputChange(e, setRegisterInput)}} required type="password" id='confirmPassword' name='confirmPassword' minLength={8}/>
                 </div>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" className='btn btn-primary'/>
             </form>
             <Link to='/'>
-                <button>
+                <button className='btn btn-outline-secondary'> 
                     Return to front page
                 </button>
             </Link>

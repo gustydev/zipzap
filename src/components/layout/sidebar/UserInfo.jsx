@@ -10,7 +10,11 @@ export default function UserInfo( {user} ) {
             className='userImage'
             />)}
             <div>{user.displayName}</div>
-            <div><Link to={`/user/${user._id}`}>@{user.username}</Link></div>
+            <div>
+                <Link to={`/user/${user._id}`} className='link-underline link-underline-opacity-0'>
+                    @{user.username}
+                </Link>
+            </div>
         </div>
     )
 }

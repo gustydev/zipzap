@@ -82,13 +82,3 @@ input[type='checkbox'] {
     justify-content: space-between;
     gap: 2px;
 }
-
-.tabSelector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.tabSelector > button {
-    width: 50%;
-}

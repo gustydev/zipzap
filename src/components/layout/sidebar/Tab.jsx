@@ -10,11 +10,10 @@ export default function Tab( {tab, tabData, user} ) {
             return 0; // if both are the same, maintain their order
         })
     }
-
+    
     return (
         <div className='tab'>
-            <h2 style={{textTransform: 'capitalize'}}>{tab + 's'}</h2>
-            <ul>
+            <ul className='list-group'>
                 {data.map((d) => {
                     return (
                         tab === 'chat' ? <ChatLink key={d._id} user={user} chat={d} />: <UserLink key={d._id} userData={d}/>
