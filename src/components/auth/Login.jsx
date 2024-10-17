@@ -38,7 +38,7 @@ export default function Login() {
             </form>
             <button className="btn btn-outline-primary">Try a demo account</button>
             <Link to='/register'>
-                <button className="btn btn-outline-success">
+                <button className="btn btn-outline-primary">
                     Create a new account
                 </button>
             </Link>

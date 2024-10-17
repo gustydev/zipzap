@@ -6,10 +6,11 @@ import UserDetails from "./UserDetails";
 import UserEdit from "./UserEdit";
 import { API_URL, apiRequest } from "../../utils/api";
 import { toast } from "react-toastify";
+import Loading from "../loading/Loading";
 
 export default function User() {
     const { userId } = useParams();
-    const { data: user, setData: setUser } = useData(`user/${userId}`)
+    const { data: user, setData: setUser, loading } = useData(`user/${userId}`)
     const auth = useAuth();
     const [socket] = useOutletContext();
     const nav = useNavigate();
@@ -61,7 +62,7 @@ export default function User() {
         }
     }
 
-    if (!user) return 'Loading user details...'
+    if (loading) return <Loading/>
 
     return (
         <div className='user'>

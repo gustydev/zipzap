@@ -7,10 +7,11 @@ import { useData } from "../../hooks/useData/useData";
 import Message from "./Message";
 import getDMRecipient from "../../utils/getDMRecipient";
 import handleInputChange from "../../utils/handleInputChange";
+import Loading from "../loading/Loading";
 
 export default function Chat() {
     const { chatId } = useParams()
-    const { data: chat, setData: setChat } = useData(`chat/${chatId}`)
+    const { data: chat, setData: setChat, loading } = useData(`chat/${chatId}`)
     const auth = useAuth();
     const [message, setMessage] = useState({
         content: '',
@@ -68,7 +69,7 @@ export default function Chat() {
         }
     }
 
-    if (!chat) return 'Loading chat...'
+    if (loading) return <Loading/>
     if (!chat.public && !chat.members.find((m) => m.member._id === auth.user._id)) return 'Error: you are not allowed to see this private chat.'
 
     return (

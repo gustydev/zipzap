@@ -5,13 +5,14 @@ import Tab from "./Tab";
 import UserInfo from "./UserInfo";
 import SidebarActions from "./SidebarActions";
 import NewChat from "./NewChat";
+import Loading from "../../loading/Loading";
 
 export default function Sidebar( {socket} ) {
     const auth = useAuth();
     const [tab, setTab] = useState('chat');
     const [newFormActive, setNewFormActive] = useState(false);
-    const { data: tabData } = useData(`${tab}/list`);
-    const { data: user, setData: setUser } = useData(`user/${auth.user._id}`);
+    const { data: tabData, loading: loadingTab } = useData(`${tab}/list`);
+    const { data: user, setData: setUser, loading: loadingUser } = useData(`user/${auth.user._id}`);
 
     useEffect(() => {
         socket.on('updateProfile', (data) => {
@@ -25,13 +26,13 @@ export default function Sidebar( {socket} ) {
         }
     }, [socket, setUser, auth.user._id])   
 
-    if (!tabData || !user) return 'Loading data...'
+    if (loadingTab && loadingUser) return <Loading />
 
     return (
         <div className="sidebar" style={{position: 'relative', padding: '12px'}}>
-            <UserInfo user={user}/>
+            {loadingUser ? <Loading /> : <UserInfo user={user}/>}
             <SidebarActions auth={auth} setTab={setTab} tab={tab}/>
-            <Tab tab={tab} tabData={tabData} user={user} />
+            {loadingTab ? <Loading /> : <Tab tab={tab} tabData={tabData} user={user} />}
             {tab === 'chat' && <NewChat newFormActive={newFormActive} setNewFormActive={setNewFormActive}/>}
         </div>
     )

@@ -3,16 +3,20 @@ import { apiRequest, API_URL } from "../../utils/api";
 
 export function useData(path) {
     const [data, setData] = useState(null)
-
+    const [loading, setLoading] = useState(true);
+    
     useEffect(() => {
         let ignore = false;
 
         async function fetchData() {
+            setLoading(true)
             try {
                 const data = await apiRequest(`${API_URL}/${path}`)
                 setData(data)
             } catch (error) {
                 console.error(error)
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -23,5 +27,5 @@ export function useData(path) {
         }
     }, [path])
 
-    return { data, setData }
+    return { data, setData, loading }
 }
