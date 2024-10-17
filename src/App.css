@@ -46,8 +46,49 @@ a {
     grid-template-columns: repeat(2, 1fr);
     margin: 4px 0;
     font-weight: bold;
+    gap: 8px;
 }
 
 .authForm > input[type='submit'] {
     align-self: end;
+}
+
+input[type='checkbox'] {
+    justify-self: end;
+}
+
+.newChat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: start;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    line-break: anywhere;
+}
+
+.userImage {
+    border-radius: 50%;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2px;
+}
+
+.tabSelector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabSelector > button {
+    width: 50%;
 }

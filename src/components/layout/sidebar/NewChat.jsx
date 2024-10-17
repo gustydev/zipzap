@@ -46,20 +46,24 @@ export default function NewChat( {newFormActive, setNewFormActive} ) {
     }
 
     return (
-        <>
+        <div className='newChat'>
         {newFormActive && (
-            <form action="" method="post" onSubmit={createChat}>
-                <input type="text" name='title' min={1} max={50} placeholder='Chat title' onChange={(e) => {handleInputChange(e, setInputs)}}/>
-                <label htmlFor="public">
-                    <p>Public?</p>
+            <form action="" method="post" onSubmit={createChat} >
+                <h3>New chat</h3>
+                <div className="formGroup">
+                    <label htmlFor="title">Title:</label>
+                    <input type="text" id='title' name='title' minLength={1} maxLength={50} placeholder='Chat title' onChange={(e) => {handleInputChange(e, setInputs)}}/>
+                </div>
+                <div className="formGroup">
+                    <label htmlFor="public">Public?</label>
                     <input id='public' type="checkbox" name='public' value={inputs.public} onChange={handlePublicChange}/>
-                </label>
+                </div>
                 <button type="submit">Create</button>
             </form>
         )}
         <button onClick={() => {setNewFormActive((curr) => !curr)}}>
             {newFormActive ? 'Cancel' : 'New chat'}
         </button>
-        </>
+        </div>
     )
 }
