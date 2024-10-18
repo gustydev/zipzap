@@ -94,6 +94,7 @@ input[type='checkbox'] {
     line-break: anywhere;
     height: 80vh;
     max-height: 80vh;
+    margin: 12px
 }
 
 .messages {
@@ -124,4 +125,8 @@ input[type='checkbox'] {
 
 .userEdit > form {
     align-items: center;
+}
+
+.chat > h2 {
+    margin: 0;
 }

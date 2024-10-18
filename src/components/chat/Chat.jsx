@@ -8,6 +8,7 @@ import Message from "./Message";
 import getDMRecipient from "../../utils/getDMRecipient";
 import handleInputChange from "../../utils/handleInputChange";
 import Loading from "../loading/Loading";
+import DMDetails from "./DMDetails";
 
 export default function Chat() {
     const { chatId } = useParams()
@@ -74,14 +75,21 @@ export default function Chat() {
 
     return (
         <div className='chat'>
-            <h2>{chat.dm ? getDMRecipient(chat.members, auth.user) : chat.title}</h2>
+            {chat.dm ? (
+                <div className="d-flex gap-2 mb-2 align-items-center">
+                    <DMDetails chat={chat} auth={auth}/>
+                </div>
+            ) : <h2>{chat.title}</h2>}
+            {!chat.dm && <span>{chat.members.length + (chat.members.length === 1 ? ' member' : ' members')}</span>}
             <div className='messages'>
                 <div>{chat.messages.map((msg) => { return <Message msg={msg} key={msg._id}/> })}</div>
             </div>
-            <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data" className='d-flex gap-1'>
+            <form action="" method='post' onSubmit={sendMessage} encType="multipart/form-data" className='d-flex flex-column gap-1'>
+                <div style={{display: 'flex', width: '100%'}} className='gap-1'>
+                    <input style={{flexGrow: 1}} type="text" name='content' onChange={(e) => {handleInputChange(e, setMessage)}} value={message.content} maxLength={250}/>
+                    <button type="submit" className="btn btn-primary">Send</button>
+                </div>
                 <input type="file" name='attachment' onChange={handleFileChange} ref={fileInput} />
-                <input type="text" name='content' onChange={(e) => {handleInputChange(e, setMessage)}} value={message.content} maxLength={250}/>
-                <button type="submit" className="btn btn-primary">Send</button>
             </form>
         </div>
     )
