@@ -62,7 +62,7 @@ export default function UserEdit( {user, socket}) {
     }
 
     return (
-        <div className='edit'>
+        <div className='userEdit'>
             <h2>Edit profile:</h2>
             <UserEditForm 
                 inputs={inputs} 
