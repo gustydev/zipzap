@@ -8,10 +8,11 @@ import Message from "./Message";
 import handleInputChange from "../../utils/handleInputChange";
 import Loading from "../loading/Loading";
 import DMDetails from "./DMDetails";
+import FetchError from "../error/FetchError";
 
 export default function Chat() {
     const { chatId } = useParams()
-    const { data: chat, setData: setChat, loading } = useData(`chat/${chatId}`)
+    const { data: chat, setData: setChat, loading, error } = useData(`chat/${chatId}`)
     const auth = useAuth();
     const [message, setMessage] = useState({
         content: '',
@@ -70,8 +71,9 @@ export default function Chat() {
     }
 
     if (loading) return <Loading/>
+    if (error || !chat) return <FetchError data='chat' id={chatId}/>
     if (!chat.public && !chat.members.find((m) => m.member._id === auth.user._id)) return 'Error: you are not allowed to see this private chat.'
-
+    
     return (
         <div className='chat'>
             {chat.dm ? (

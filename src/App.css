@@ -36,11 +36,15 @@ a {
     gap: 8px;
 }
 
+.home, .fetchError {
+    padding: 24px;
+}
+
 .authForm {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 16px;
+    /* padding: 16px; */
 }
 
 .formGroup {
@@ -57,6 +61,11 @@ a {
 
 input[type='checkbox'] {
     justify-self: end;
+}
+
+/* this is the chat title input from newChat form */
+input#title {
+    width: 100%;
 }
 
 .newChat {
@@ -122,6 +131,10 @@ input[type='checkbox'] {
 }
 
 .userEdit {
+    width: 100%;
+}
+
+.newChat > form {
     width: 100%;
 }
 

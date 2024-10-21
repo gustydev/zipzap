@@ -12,7 +12,6 @@ export default function Register() {
         confirmPassword: '',
         displayName: ''
     })
-    const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -32,7 +31,6 @@ export default function Register() {
             errors.details.forEach((e) => {
                 toast.error(e.msg);
             })
-            setErrors(errors.details)
         }
     }
 
@@ -60,7 +58,7 @@ export default function Register() {
             </form>
             <Link to='/'>
                 <button className='btn btn-outline-secondary'> 
-                    Return to front page
+                    Return to login page
                 </button>
             </Link>
         </div>

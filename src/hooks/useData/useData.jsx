@@ -4,6 +4,7 @@ import { apiRequest, API_URL } from "../../utils/api";
 export function useData(path) {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     
     useEffect(() => {
         let ignore = false;
@@ -14,7 +15,7 @@ export function useData(path) {
                 const data = await apiRequest(`${API_URL}/${path}`)
                 setData(data)
             } catch (error) {
-                console.error(error)
+                setError(error)
             } finally {
                 setLoading(false);
             }
@@ -27,5 +28,5 @@ export function useData(path) {
         }
     }, [path])
 
-    return { data, setData, loading }
+    return { data, setData, loading, error }
 }

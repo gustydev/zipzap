@@ -9,7 +9,7 @@ export async function apiRequest(url, options = {}) {
         
         return data;
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('Error in API request: ', error.err.msg);
         throw error;
     }
 }

@@ -7,10 +7,11 @@ import UserEdit from "./UserEdit";
 import { API_URL, apiRequest } from "../../utils/api";
 import { toast } from "react-toastify";
 import Loading from "../loading/Loading";
+import FetchError from "../error/FetchError";
 
 export default function User() {
     const { userId } = useParams();
-    const { data: user, setData: setUser, loading } = useData(`user/${userId}`)
+    const { data: user, setData: setUser, loading, error } = useData(`user/${userId}`)
     const auth = useAuth();
     const [socket] = useOutletContext();
     const nav = useNavigate();
@@ -63,6 +64,7 @@ export default function User() {
     }
 
     if (loading) return <Loading/>
+    if (error || !user) return <FetchError data='user' id={userId} />
 
     return (
         <div className='user'>
