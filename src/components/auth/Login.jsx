@@ -3,8 +3,6 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 import handleInputChange from "../../utils/handleInputChange";
-import { API_URL, apiRequest } from "../../utils/api";
-import { generateUsername } from "unique-username-generator";
 
 export default function Login() {
     const [loginInput, setLoginInput] = useState({username: '', password: ''})
@@ -19,31 +17,11 @@ export default function Login() {
         toast.error('Invalid inputs')
     }
 
-    async function createDemoAcc() {
-        try {
-            const randomUsername = generateUsername('_', 0, 15, 'demo');
-            const randomPass = Math.random().toString(36).slice(2, 10);
-
-            await apiRequest(`${API_URL}/user/register`, {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: randomUsername,
-                    password: randomPass,
-                    confirmPassword: randomPass,
-                    demo: true
-                })
-            })
-
-            auth.userLogin({
-                username: randomUsername,
-                password: randomPass
-            })
-        } catch (error) {
-            console.error(error)
-        }
+    async function demoLogin() {
+        auth.userLogin({
+            username: 'demo_user',
+            password: import.meta.env.VITE_DEMO_PASS
+        })
     }
 
     if (auth.token) {
@@ -65,7 +43,7 @@ export default function Login() {
                 </div>
                 <input type="submit" value="Log in" className='btn btn-primary'/>
             </form>
-            <button className="btn btn-outline-success" onClick={() => {createDemoAcc()}}>Try a demo account</button>
+            <button className="btn btn-outline-success" onClick={() => {demoLogin()}}>Try a demo account</button>
             <Link to='/register'>
                 <button className="btn btn-outline-primary">
                     Create a new account
