@@ -67,10 +67,12 @@ export default function User() {
     return (
         <div className='user'>
             <UserDetails user={user} />
-            {auth.user._id === user._id && (
-                <UserEdit user={user} socket={socket} />
+            {auth.user._id === user._id && auth.user.demo ? (
+                <div>Create a free account to customize your profile, including your display name, bio and profile picture</div>
+            ) : (
+                auth.user._id === user._id && <UserEdit user={user} socket={socket} />
             )}
-            {auth.user._id !== userId && <button onClick={createDMChat} className='btn btn-primary'>Start Chat</button>}
+            {auth.user._id !== userId && !auth.user.demo && <button onClick={createDMChat} className='btn btn-primary'>Start Chat</button>}
         </div>    
     )
 }

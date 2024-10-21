@@ -10,7 +10,8 @@ export default function ProtectedRoute() {
     if (!auth.token) return <Navigate to="/login" />;
 
     const socket = io(API_URL, {transports: ['websocket', 'polling', 'flashsocket'], query: {
-        userId: auth.user._id
+        userId: auth.user._id,
+        demo: auth.user.demo
     }})
     
     return (

@@ -135,6 +135,10 @@ input[type='checkbox'] {
     margin: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 @media (max-width: 930px) {
     .mainLayout {
         display: flex;

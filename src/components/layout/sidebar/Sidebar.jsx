@@ -33,7 +33,7 @@ export default function Sidebar( {socket} ) {
             {loadingUser ? <Loading /> : <UserInfo user={user}/>}
             <SidebarActions auth={auth} setTab={setTab} tab={tab}/>
             {loadingTab ? <Loading /> : <Tab tab={tab} tabData={tabData} user={user} />}
-            {tab === 'chat' && <NewChat newFormActive={newFormActive} setNewFormActive={setNewFormActive}/>}
+            {tab === 'chat' && !auth.user.demo && <NewChat newFormActive={newFormActive} setNewFormActive={setNewFormActive}/>}
         </div>
     )
 }

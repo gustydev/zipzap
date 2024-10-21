@@ -88,7 +88,7 @@ export default function Chat() {
                     <input style={{flexGrow: 1}} type="text" name='content' onChange={(e) => {handleInputChange(e, setMessage)}} value={message.content} maxLength={250}/>
                     <button type="submit" className="btn btn-primary">Send</button>
                 </div>
-                <input type="file" name='attachment' onChange={handleFileChange} ref={fileInput} />
+                <input type="file" name='attachment' onChange={handleFileChange} ref={fileInput} className={auth.user.demo ? 'hidden' : ''}/>
             </form>
         </div>
     )

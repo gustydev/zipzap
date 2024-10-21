@@ -21,7 +21,9 @@ export default function Tab( {tab, tabData, user} ) {
                             return <ChatLink key={d._id} user={user} chat={d} />;
                         }
                     } else {
-                        return <UserLink key={d._id} userData={d} />;
+                        if (!d.demo) {
+                            return <UserLink key={d._id} userData={d} />;
+                        } 
                     }
                     return null;
                 })}
