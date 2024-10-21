@@ -16,7 +16,7 @@ export default function Tab( {tab, tabData, user} ) {
             <ul className='list-group'>
                 {data.map((d) => {
                     if (tab === 'chat') {
-                        const isMember = d.members?.find((m) => m.member._id === user._id);
+                        const isMember = d.members?.find((m) => m.member._id === user?._id);
                         if (isMember || d.public) {
                             return <ChatLink key={d._id} user={user} chat={d} />;
                         }

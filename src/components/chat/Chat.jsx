@@ -5,7 +5,6 @@ import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 import { useData } from "../../hooks/useData/useData";
 import Message from "./Message";
-import getDMRecipient from "../../utils/getDMRecipient";
 import handleInputChange from "../../utils/handleInputChange";
 import Loading from "../loading/Loading";
 import DMDetails from "./DMDetails";

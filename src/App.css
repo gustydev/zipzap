@@ -6,9 +6,13 @@
     padding: 2vh 0;
 }
 
+.topbar > h1 {
+    margin: 0;
+}
+
 .mainLayout {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 5fr;
 }
 
 a {
@@ -129,4 +133,11 @@ input[type='checkbox'] {
 
 .chat > h2 {
     margin: 0;
+}
+
+@media (max-width: 930px) {
+    .mainLayout {
+        display: flex;
+        flex-direction: column;
+    }
 }

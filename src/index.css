@@ -9,3 +9,7 @@ main {
     height: 100%;
     flex: 1;
 }
+
+h1 {
+    margin-bottom: 0;
+}
