@@ -64,7 +64,7 @@ export default function User() {
     }
 
     if (loading) return <Loading/>
-    if (error || !user) return <FetchError data='user' id={userId} />
+    if (error || !user) return <FetchError error={error} />
 
     return (
         <div className='user'>

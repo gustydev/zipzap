@@ -6,7 +6,7 @@ import { API_URL } from "../../utils/api";
 
 export default function ProtectedRoute() {
     const auth = useAuth();
-
+    
     if (!auth.token) return <Navigate to="/login" />;
 
     const socket = io(API_URL, {transports: ['websocket', 'polling', 'flashsocket'], query: {

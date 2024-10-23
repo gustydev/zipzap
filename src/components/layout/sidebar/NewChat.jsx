@@ -38,8 +38,8 @@ export default function NewChat( {newFormActive, setNewFormActive} ) {
 
             nav(`/chat/${res.chat._id}`)
         } catch (err) {
-            console.error(err)
-            err.details.forEach((e) => {
+            toast.error(err.message);
+            err.details?.forEach((e) => {
                 toast.error(e.msg);
             })
         }

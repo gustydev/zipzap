@@ -71,7 +71,7 @@ export default function Chat() {
     }
 
     if (loading) return <Loading/>
-    if (error || !chat) return <FetchError data='chat' id={chatId}/>
+    if (error || !chat) return <FetchError error={error} />
     if (!chat.public && !chat.members.find((m) => m.member._id === auth.user._id)) return 'Error: you are not allowed to see this private chat.'
     
     return (
