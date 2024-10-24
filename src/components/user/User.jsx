@@ -74,7 +74,7 @@ export default function User() {
             ) : (
                 auth.user._id === user._id && <UserEdit user={user} socket={socket} />
             )}
-            {auth.user._id !== userId && !auth.user.demo && <button onClick={createDMChat} className='btn btn-primary'>Start Chat</button>}
+            {auth.user._id !== userId && !auth.user.demo && <button onClick={createDMChat} className='btn btn-primary mt-5'>Start Chat</button>}
         </div>    
     )
 }

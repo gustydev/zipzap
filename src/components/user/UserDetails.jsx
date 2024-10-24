@@ -6,8 +6,11 @@ export default function UserDetails( {user} ) {
             <p>@{user.username}</p>
             {!user.demo && (
                 <>
-                <p>Member since {new Date(user.joined).toLocaleDateString()}</p>
-                <p>Currently <span className={user.status === 'Online' ? 'online' : 'offline'}>{user.status}</span></p>
+                <p>Member since {new Date(user.joined).toLocaleString()}</p>
+                {user.status === 'Offline' && user.lastSeen && <p>Last seen {new Date(user.lastSeen).toLocaleString()}</p>}
+                <p>
+                    Currently <span className={user.status === 'Online' ? 'online' : 'offline'}>{user.status}</span>
+                </p>
                 </>
             )}
             {user.bio && (
