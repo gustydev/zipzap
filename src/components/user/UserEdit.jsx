@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth/useAuth"
 import { toast } from "react-toastify"
 import UserEditForm from "./UserEditForm"
 import handleInputChange from "../../utils/handleInputChange"
+import { redirect } from "react-router-dom"
 
 export default function UserEdit( {user, socket}) {
     const [inputs, setInputs] = useState({
@@ -61,9 +62,28 @@ export default function UserEdit( {user, socket}) {
         }
     }
 
+    async function deleteAccount() {
+        const userAgree = confirm('Are you sure you want to delete your account and all of its messages? This cannot be undone!!')
+        if (userAgree) {
+            try {
+                await apiRequest(`${API_URL}/user/${auth.user._id}`, {
+                    method: 'delete',
+                    headers: {
+                        'Authorization': `Bearer ${auth.token}`
+                    }
+                })
+                auth.logOut();
+                redirect('/');
+            } catch (err) {
+                console.error(err)
+                toast.error(err.message)
+            }
+        }
+    }
+
     return (
         <div className='userEdit'>
-            <h2>Edit profile:</h2>
+            <h2>Edit:</h2>
             <UserEditForm 
                 inputs={inputs} 
                 updateProfile={updateProfile} 
@@ -72,6 +92,8 @@ export default function UserEdit( {user, socket}) {
                 fileInput={fileInput}    
                 setInputs={setInputs}
             />
+            <h2 className='mt-5'>Danger zone</h2>
+            <button className='btn btn-danger' onClick={deleteAccount}>Delete account</button>
         </div>
     )
 }
