@@ -19,7 +19,7 @@ export default function Login() {
 
     async function demoLogin() {
         auth.userLogin({
-            username: 'demo_user',
+            username: import.meta.env.VITE_DEMO_USERNAME,
             password: import.meta.env.VITE_DEMO_PASS
         })
     }
