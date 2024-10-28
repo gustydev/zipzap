@@ -31,7 +31,7 @@ export default function Login() {
 
     return (
         <div className='login'>
-            <h2>Welcome to Messenger!</h2>
+            <h2>Welcome to ZipZap!</h2>
             <form action="" method='post' onSubmit={(e) => {handleSubmit(e)}} className="authForm">
                 <div className="formGroup mb-3">
                     <label htmlFor="username">Username</label>
