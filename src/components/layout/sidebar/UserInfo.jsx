@@ -6,7 +6,7 @@ export default function UserInfo( {user} ) {
             {user.profilePicUrl && (<img 
             src={user.profilePicUrl} 
             alt={`${user.username}'s profile picture`}
-            style={{width: '50px'}}
+            style={{width: '50px', height: '50px'}}
             className='userImage'
             />)}
             <div className='d-grid'>

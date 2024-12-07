@@ -97,6 +97,8 @@ input#title {
     flex-direction: column;
     margin-bottom: 8px;
     gap: 4px;
+    border-left: 2px solid rgb(0, 163, 215);
+    padding-left: 4px;
 }
 
 .chat {
