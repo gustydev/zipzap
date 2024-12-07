@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiRequest, API_URL } from "../../utils/api";
-import { toast } from "react-toastify";
 import handleInputChange from "../../utils/handleInputChange";
 import { Link } from "react-router-dom";
+import { registerUser } from "../../utils/apiRequests";
 
 export default function Register() {
     const [registerInput, setRegisterInput] = useState({
@@ -16,22 +15,7 @@ export default function Register() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        try {
-            await apiRequest(`${API_URL}/user/register`, {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(registerInput)
-            })
-            
-            toast.success(`User ${registerInput.username} sucessfully registered! Proceed to log in`)
-            navigate('/login');
-        } catch (errors) {
-            errors.details.forEach((e) => {
-                toast.error(e.msg);
-            })
-        }
+        registerUser(registerInput, navigate)
     }
 
     return (

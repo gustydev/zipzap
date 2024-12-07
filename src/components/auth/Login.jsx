@@ -3,6 +3,7 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth/useAuth";
 import { toast } from "react-toastify";
 import handleInputChange from "../../utils/handleInputChange";
+import { registerUser } from "../../utils/apiRequests";
 
 export default function Login() {
     const [loginInput, setLoginInput] = useState({username: '', password: ''})
@@ -18,10 +19,19 @@ export default function Login() {
     }
 
     async function demoLogin() {
-        auth.userLogin({
+        const data = {
             username: import.meta.env.VITE_DEMO_USERNAME,
-            password: import.meta.env.VITE_DEMO_PASS
-        })
+            password: import.meta.env.VITE_DEMO_PASS,
+            confirmPassword: import.meta.env.VITE_DEMO_PASS,
+            displayName: 'Demo User',
+            demo: true
+        };
+
+        // register demo account if it doesn't exist
+        await registerUser(data)
+
+        // then log in with it
+        auth.userLogin(data)
     }
 
     if (auth.token) {
